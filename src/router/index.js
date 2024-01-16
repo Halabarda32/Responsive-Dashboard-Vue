@@ -1,29 +1,33 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import DashboardView from '../views/DashboardView.vue'
+import FormView from '../views/FormView.vue'
+import DataView from '../views/DataView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+	{
+		path: '/',
+		name: 'dashboard',
+		component: DashboardView,
+	},
+	{
+		path: '/add',
+		name: 'form',
+		component: FormView,
+	},
+	{
+		path: '/edit',
+		name: 'edit',
+		component: DataView,
+	},
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+	mode: 'history',
+	base: process.env.BASE_URL,
+	routes,
 })
 
 export default router
