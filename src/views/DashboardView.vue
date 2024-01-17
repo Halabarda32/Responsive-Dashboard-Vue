@@ -1,35 +1,26 @@
 <template>
 	<v-container>
-		<v-overlay :value="isLoading">
-			<v-progress-circular indeterminate color="primary"></v-progress-circular>
-		</v-overlay>
-
 		<EditDialog
 			:show-dialog="editDialog"
 			:edited-character="editedCharacter"
 			@save-edit="saveEdit"
-			@close-edit-dialog="closeEditDialog">
-		</EditDialog>
+			@close-edit-dialog="closeEditDialog"></EditDialog>
 
 		<DataTable
 			:items="characters"
 			:headers="headers"
 			:search="search"
-			:loading="isLoading"
-			:footer-props="{
-				showFirstLastPage: true,
-				'items-per-page-options': [10, 30, 100, { text: 'All', value: -1 }],
-			}"
+			:loading="SetIsLoading"
+			:footer-props="footerProps"
 			:open-edit-dialog="openEditDialog"
-			:update-loading="updateLoading"
-			:image-headers="imageHeaders">
-		</DataTable>
+			:image-headers="imageHeaders"></DataTable>
 	</v-container>
 </template>
 
 <script>
 import DataTable from '@/components/DataTable.vue'
 import EditDialog from '@/components/EditDialog.vue'
+
 export default {
 	components: {
 		DataTable,
@@ -37,7 +28,6 @@ export default {
 	},
 	data() {
 		return {
-			charactersData: [],
 			headers: [
 				{ text: 'Edit', value: 'edit' },
 				{ text: 'Name', value: 'name' },
@@ -52,12 +42,9 @@ export default {
 				{ text: 'Image', value: 'image' },
 				{ text: 'School Image', value: 'imageSchool' },
 			],
+			charactersData: [],
+			selectedCharacterId: null,
 			search: '',
-			currentPage: 1,
-			perPage: 200,
-			totalPages: 0,
-			loading: true,
-			selectedCharacter: null,
 			editDialog: false,
 			editedCharacter: {
 				_id: '',
@@ -72,26 +59,29 @@ export default {
 		characters() {
 			return this.$store.getters.SetCharacters
 		},
-		isLoading() {
-			const loading = this.$store.getters.isloading
-			return loading
+		SetIsLoading() {
+			return this.$store.state.loading
+		},
+		footerProps() {
+			return {
+				showFirstLastPage: true,
+				'items-per-page-options': [10, 30, 100, { text: 'All', value: -1 }],
+			}
 		},
 	},
 	created() {
 		this.fetchCharacters()
-		this.selectedCharacter = this.$route.params.selectedCharacter || null
+		this.selectedCharacterId = this.$route.params.selectedCharacter || null
+		this.initializeData()
 	},
 	watch: {
-		currentPage: 'fetchCharacters',
-		perPage: 'fetchCharacters',
 		'$route.params.selectedCharacter'(newCharacter) {
-			this.selectedCharacter = newCharacter
+			this.selectedCharacterId = newCharacter
 		},
 	},
 	methods: {
 		fetchCharacters() {
 			const { currentPage, perPage } = this
-
 			this.$store.dispatch('fetchCharacters', { currentPage, perPage }).then(() => {
 				this.charactersData = [...this.$store.getters.SetCharacters]
 			})
@@ -100,15 +90,21 @@ export default {
 			this.editedCharacter = { ...character }
 			this.editDialog = true
 		},
-		cancelEdit() {
-			this.editDialog = false
-		},
 		saveEdit(editedCharacter) {
 			this.$store.dispatch('editCharacter', editedCharacter)
 			this.editDialog = false
 		},
 		closeEditDialog() {
 			this.editDialog = false
+		},
+		initializeData() {
+			this.editedCharacter = {
+				_id: '',
+				name: '',
+				school: '',
+				birthday: '',
+				damageType: '',
+			}
 		},
 	},
 }

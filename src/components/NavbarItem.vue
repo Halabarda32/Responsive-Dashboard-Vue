@@ -45,11 +45,6 @@ export default {
 					icon: 'mdi-plus',
 					link: '/add',
 				},
-				{
-					title: 'Edit Data',
-					icon: 'mdi-pencil',
-					link: '/edit',
-				},
 			],
 		}
 	},

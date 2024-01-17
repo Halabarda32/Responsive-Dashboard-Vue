@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
 import FormView from '../views/FormView.vue'
-import DataView from '../views/DataView.vue'
 
 Vue.use(VueRouter)
 
@@ -16,11 +15,6 @@ const routes = [
 		path: '/add',
 		name: 'form',
 		component: FormView,
-	},
-	{
-		path: '/edit',
-		name: 'edit',
-		component: DataView,
 	},
 ]
 
