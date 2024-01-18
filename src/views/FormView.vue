@@ -70,9 +70,16 @@ export default {
 	},
 	computed: {
 		isFormValid() {
-			return (
-				this.newCharacter.name && this.newCharacter.school && this.newCharacter.birthday && this.newCharacter.damageType
-			)
+			if (
+				this.newCharacter.name &&
+				this.newCharacter.school &&
+				this.newCharacter.birthday !== null &&
+				this.newCharacter.damageType
+			) {
+				return true
+			} else {
+				return false
+			}
 		},
 	},
 	watch: {

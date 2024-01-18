@@ -7,9 +7,15 @@
 					<v-text-field v-model="localEditedCharacter.name" label="Name" :rules="nameRules"></v-text-field>
 					<v-text-field v-model="localEditedCharacter.photoUrl" label="Photo" :rules="photoUrlRules"></v-text-field>
 					<v-text-field v-model="localEditedCharacter.school" label="School" :rules="schoolRules"></v-text-field>
-					<v-text-field v-model="localEditedCharacter.imageSchool" label="School Image" :rules="imageSchoolRules"></v-text-field>
+					<v-text-field
+						v-model="localEditedCharacter.imageSchool"
+						label="School Image"
+						:rules="imageSchoolRules"></v-text-field>
 					<v-text-field v-model="localEditedCharacter.birthday" label="Birthday" :rules="birthdayRules"></v-text-field>
-					<v-text-field v-model="localEditedCharacter.damageType" label="Damage Type" :rules="damageTypeRules"></v-text-field>
+					<v-text-field
+						v-model="localEditedCharacter.damageType"
+						label="Damage Type"
+						:rules="damageTypeRules"></v-text-field>
 
 					<v-btn type="submit" color="primary">Save</v-btn>
 					<v-btn @click="cancelEdit">Cancel</v-btn>
@@ -24,7 +30,7 @@ import { ValidationMixin } from '@/helpers/Validation'
 
 export default {
 	mixins: [ValidationMixin],
-	props: ['showDialog', 'editedCharacter'],
+	props: { showDialog: Boolean, editedCharacter: Object },
 	data() {
 		return {
 			localShowDialog: this.showDialog,

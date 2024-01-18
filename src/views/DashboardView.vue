@@ -80,11 +80,14 @@ export default {
 		},
 	},
 	methods: {
-		fetchCharacters() {
-			const { currentPage, perPage } = this
-			this.$store.dispatch('fetchCharacters', { currentPage, perPage }).then(() => {
+		async fetchCharacters() {
+			try {
+				const { currentPage, perPage } = this
+				await this.$store.dispatch('fetchCharacters', { currentPage, perPage })
 				this.charactersData = [...this.$store.getters.SetCharacters]
-			})
+			} catch (error) {
+				console.error('Error fetching characters:', error)
+			}
 		},
 		openEditDialog(character) {
 			this.editedCharacter = { ...character }
