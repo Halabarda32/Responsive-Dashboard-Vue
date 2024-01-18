@@ -1,7 +1,7 @@
 <template>
 	<v-dialog v-model="localShowDialog" max-width="600">
 		<v-card>
-			<v-card-title>Edit Character</v-card-title>
+			<v-card-title class="blue--text">Edit Character</v-card-title>
 			<v-card-text>
 				<v-form @submit.prevent="saveEdit">
 					<v-text-field v-model="localEditedCharacter.name" label="Name" :rules="nameRules"></v-text-field>
@@ -17,7 +17,7 @@
 						label="Damage Type"
 						:rules="damageTypeRules"></v-text-field>
 
-					<v-btn type="submit" color="primary">Save</v-btn>
+					<v-btn type="submit" color="primary" class="mr-5">Save</v-btn>
 					<v-btn @click="cancelEdit">Cancel</v-btn>
 				</v-form>
 			</v-card-text>

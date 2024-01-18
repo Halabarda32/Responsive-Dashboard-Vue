@@ -1,20 +1,30 @@
 <template>
-	<v-container>
-		<EditDialog
-			:show-dialog="editDialog"
-			:edited-character="editedCharacter"
-			@save-edit="saveEdit"
-			@close-edit-dialog="closeEditDialog"></EditDialog>
+	<div class="content">
+		<v-container justify="center" class="my-5">
+			<div class="custom-header">
+				<h1 class="light-blue--text my-5">Character Table</h1>
+				<div class="custom-underline"></div>
+			</div>
+			<div>
+				<v-img contain src="../assets/blob/blob1.png" class="blob blob-one"></v-img>
+				<v-img contain src="../assets/blob/blob2.png" class="blob blob-two"></v-img>
+			</div>
+			<EditDialog
+				:show-dialog="editDialog"
+				:edited-character="editedCharacter"
+				@save-edit="saveEdit"
+				@close-edit-dialog="closeEditDialog"></EditDialog>
 
-		<DataTable
-			:items="characters"
-			:headers="headers"
-			:search="search"
-			:loading="SetIsLoading"
-			:footer-props="footerProps"
-			:open-edit-dialog="openEditDialog"
-			:image-headers="imageHeaders"></DataTable>
-	</v-container>
+			<DataTable
+				:items="characters"
+				:headers="headers"
+				:search="search"
+				:loading="SetIsLoading"
+				:footer-props="footerProps"
+				:open-edit-dialog="openEditDialog"
+				:image-headers="imageHeaders"></DataTable>
+		</v-container>
+	</div>
 </template>
 
 <script>
@@ -113,4 +123,62 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.content {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.blob {
+	position: absolute;
+	top: -1%;
+	left: 65%;
+	width: 700px;
+	z-index: -10;
+}
+
+.blob-one {
+	animation: rotate-right 120s infinite linear;
+}
+
+.blob-two {
+	top: 22%;
+	left: -4%;
+	animation: rotate-left 135s infinite linear;
+}
+
+.custom-header {
+	position: relative;
+}
+
+.custom-underline {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 8%;
+	height: 4px;
+	background-color: #b6dcf7;
+}
+
+@keyframes rotate-right {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes rotate-left {
+	from {
+		transform: rotate(360deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}
+</style>
