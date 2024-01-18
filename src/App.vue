@@ -22,6 +22,5 @@ export default {
 .main-content {
 	position: relative;
 	z-index: 100;
-	/* overflow: hidden; */
 }
 </style>
