@@ -1,7 +1,7 @@
 <template>
 	<v-app class="grey lighten-4">
 		<NavbarItem />
-		<v-main class="mx-4 mb-4">
+		<v-main class="mx-4 mb-4 main-content">
 			<router-view />
 		</v-main>
 	</v-app>
@@ -17,3 +17,10 @@ export default {
 	}),
 }
 </script>
+
+<style>
+.main-content {
+	position: relative;
+	z-index: 100;
+}
+</style>
